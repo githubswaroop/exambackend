@@ -4,7 +4,7 @@ const { findOne } = require('../model/userschema');
 const router = express.Router();
 const authenticate = require("../middelwares/authenticate");
 const User = require("../model/userschema");
-
+const bcrypt=require("bcryptjs");
 const cookieparser = require("cookie-parser");
 
 
@@ -150,13 +150,13 @@ router.post("/login", async (req, res) => {
 
 
     if (userlogin) {
-      if (password == userlogin.password) {
+      const passwordcheck=await bcrypt.compare(password,userlogin.password);
+      if (passwordcheck) {
         const token = await userlogin.genrateAuthToken();
-         res.json({sucess:true, token: token});
-      } else {
-        res.status(400).json({ message: "invalid" });
+       res.json({sucess:true, token: token});   
+      } else {  
+        res.status(400).json({ message: "invalid credentials" });
       }
-
 
     } else {
       res.status(400).json({ message: "Invalid data" });
