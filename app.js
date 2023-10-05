@@ -9,8 +9,8 @@ require("./conn");
 app.use(express.json());
 
 const corsOpts = {
-          origin: 'http://localhost:3000',
-        // origin: ' https://aptitudeexam.vercel.app',
+          // origin: 'http://localhost:3000',
+        origin: ' https://aptitudeexam.vercel.app',
    // origin: 'https://lastmernazurefrontend.vercel.app',
     credentials: true,
     methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
